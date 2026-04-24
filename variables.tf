@@ -25,17 +25,13 @@ variable "interfaces" {
 }
 
 variable "routes" {
-  description = "Ordered routing policy entries consumed by the IPT workload. Each entry groups an ordered member list (route) with match rules."
+  description = "Ordered routing policy entries consumed by the IPT workload. Each entry groups an ordered member list (route) with match rules as bare strings (type inferred in the pydantic model)."
   type = list(object({
     route = list(object({
       gw  = optional(string)
       dev = optional(string)
     }))
-    rules = list(object({
-      net     = optional(string)
-      domain  = optional(string)
-      country = optional(string)
-    }))
+    rules = list(string)
   }))
 
   validation {

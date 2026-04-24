@@ -9,7 +9,7 @@ variables {
   workload_client_cidrs = toset(["10.0.24.0/24"])
   routes = [{
     route = [{ gw = "10.0.0.1" }]
-    rules = [{ net = "0.0.0.0/0" }]
+    rules = ["0.0.0.0/0"]
   }]
   connection_data = {
     host                 = "test.example.com"
