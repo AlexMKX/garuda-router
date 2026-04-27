@@ -3,10 +3,9 @@
 mock_provider "ansible" {}
 
 variables {
-  name                  = "ipt_server__test"
-  host_name             = "test-host"
-  ipt_server_dir        = "/opt/garuda/ipt_server"
-  workload_client_cidrs = toset(["10.0.24.0/24"])
+  name           = "ipt_server__test"
+  host_name      = "test-host"
+  ipt_server_dir = "/opt/garuda/ipt_server"
   routes = [{
     route = [{ gw = "10.0.0.1" }]
     rules = ["0.0.0.0/0"]
@@ -37,3 +36,20 @@ run "contract_labels_variable_passes_through_router_id" {
 # re-introduces it, terraform validate in this module will fail when any
 # caller omits it. No runtime assertion is possible for a missing variable —
 # the guarantee lives in the module schema, not in a test run.
+
+# contract_workload_client_cidrs_no_longer_accepted: enforced statically —
+# var.workload_client_cidrs was removed from variables.tf. Any caller that
+# passes it will get "An argument named workload_client_cidrs is not expected"
+# at terraform validate / plan time. No runtime test needed.
+
+run "contract_labels_mandatory" {
+  command = plan
+
+  variables {
+    labels = {}
+  }
+
+  expect_failures = [
+    var.labels,
+  ]
+}

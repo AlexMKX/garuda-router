@@ -13,11 +13,6 @@ variable "ipt_server_dir" {
   type        = string
 }
 
-variable "workload_client_cidrs" {
-  description = "Set of client CIDRs from all workloads; used to scope DNS interception."
-  type        = set(string)
-}
-
 variable "interfaces" {
   description = "List of network interfaces for PBR/input handling."
   type        = list(string)
@@ -62,9 +57,9 @@ variable "domain_route_ttl" {
 }
 
 variable "nic_attach" {
-  description = "Transport networks to attach. Supported values: 'backbone', 'border'. Order is ignored."
+  description = "Additional transport networks to attach beyond backbone. Backbone is added unconditionally by the role. Supported additional values: 'border'."
   type        = list(string)
-  default     = ["backbone"]
+  default     = []
 
   validation {
     condition     = alltrue([for n in var.nic_attach : contains(["backbone", "border"], n)])
@@ -92,7 +87,11 @@ variable "extra_hostvars" {
 }
 
 variable "labels" {
-  description = "Docker container labels applied to the workload service. Consumed by the sidecar operator for workload discovery and per-container FRR/PBR rendering."
+  description = "Docker container labels applied to the workload service. Caller must supply at least 'garuda.frr.ospf.router_id'. Consumed by the sidecar operator for workload discovery and per-container FRR/PBR rendering."
   type        = map(string)
-  default     = {}
+
+  validation {
+    condition     = length(var.labels) > 0
+    error_message = "labels must be non-empty; at minimum supply garuda.frr.ospf.router_id."
+  }
 }

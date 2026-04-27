@@ -13,15 +13,14 @@ Inputs:
 - `name` — stable workload identifier used for generated payload artifacts
 - `host_name` — inventory host running the IPT stack
 - `ipt_server_dir` — target directory for the IPT compose project
-- `workload_client_cidrs` — set of client CIDRs across all workloads; scopes DNS interception
 - `interfaces` (default `["backbone"]`) — network interfaces for PBR/input handling
 - `routes` — ordered routing policy entries (list of `{route: [{gw?, dev?}], rules: [{net?, domain?, country?}]}`)
 - `clean_conntrack` (default `true`) — clean conntrack state for managed flows
 - `domain_route_ttl` (default `300`) — TTL in seconds for domain-derived routing entries
-- `nic_attach` (default `["backbone"]`) — transport networks to attach; values from `{"backbone", "border"}`
+- `nic_attach` (default `[]`) — additional transport networks beyond backbone (which is mandatory and added by the role). Supported additional value: 'border'
 - `connection_data` — normalized transport/auth contract for the target Linux host, passed to `linux_apply` unchanged
 - `extra_hostvars` (default `{}`) — optional additional hostvars merged into module-local ansible_host variables
-- `labels` (default `{}`) — Docker container labels applied to the workload service; consumed by the sidecar operator for FRR/PBR rendering
+- `labels` (mandatory, non-empty) — Docker container labels; must include `garuda.frr.ospf.router_id`. Caller-supplied values override role-side garuda invariants in `combine`
 
 Behavior:
 
