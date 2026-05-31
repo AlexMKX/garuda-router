@@ -55,9 +55,9 @@ variable "pbr_interfaces" {
 }
 
 variable "nic_attach" {
-  description = "Secondary networks the pod attaches to via Multus. Becomes the k8s.v1.cni.cncf.io/networks annotation."
+  description = "Secondary networks the pod attaches to via Multus. Becomes the k8s.v1.cni.cncf.io/networks annotation. ipt_server is backbone-only; local egress now lives in modules/border_router."
   type        = list(string)
-  default     = ["backbone", "border"]
+  default     = ["backbone"]
 
   validation {
     condition     = length(var.nic_attach) > 0

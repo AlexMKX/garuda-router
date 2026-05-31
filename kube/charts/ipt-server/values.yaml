@@ -9,7 +9,6 @@ pbrInterfaces:
   - backbone
 nicAttach:
   - backbone
-  - border
 cleanConntrack: false
 domainRouteTtl: 300
 pinningEgress: {}

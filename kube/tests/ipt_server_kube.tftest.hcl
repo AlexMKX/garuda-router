@@ -72,7 +72,7 @@ run "values_include_images_and_defaults" {
   }
 }
 
-run "nic_attach_default_is_backbone_and_border" {
+run "nic_attach_default_is_backbone_only" {
   command = plan
 
   assert {
@@ -81,8 +81,8 @@ run "nic_attach_default_is_backbone_and_border" {
   }
 
   assert {
-    condition     = strcontains(helm_release.ipt_server.values[0], "- \"border\"")
-    error_message = "default nic_attach must include border"
+    condition     = !strcontains(helm_release.ipt_server.values[0], "- \"border\"")
+    error_message = "default nic_attach must NOT include border (egress moved to border_router)"
   }
 }
 
