@@ -240,7 +240,7 @@ spec:
       annotations:
         k8s.v1.cni.cncf.io/networks: "backbone@backbone,border@border"
         garuda.runtime-patches/checksum: 
-        garuda.env-config/checksum: 84c98741803d8638338d00e508b844bf08cba21e3e51ccb6bf3dfa7d3dcbf74a
+        garuda.env-config/checksum: b06382571741e28cbb103866ffb6e3fa501224897d2188bedb2416f077c1ded2
     spec:
       restartPolicy: Always
       # Match the existing docker-compose stack's sysctls. ip_forward

@@ -1,15 +1,8 @@
 locals {
-  _frr_lib = "${path.module}/../../frr-sidecar/charts/frr-sidecar/templates"
   runtime_patch_checksum = sha256(join("", [
     filesha256("${path.module}/charts/ipt-server/templates/deployment.yaml"),
     filesha256("${path.module}/charts/ipt-server/templates/runtime-patches.yaml"),
     filesha256("${path.module}/charts/ipt-server/files/sitecustomize.py"),
-    # frr-sidecar library chart templates — track changes so helm_release
-    # upgrades when library templates change (#51)
-    filesha256("${local._frr_lib}/_container.tpl"),
-    filesha256("${local._frr_lib}/_frrconf.tpl"),
-    filesha256("${local._frr_lib}/_initContainer.tpl"),
-    filesha256("${local._frr_lib}/_volume.tpl"),
   ]))
 }
 
