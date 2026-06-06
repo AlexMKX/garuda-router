@@ -11,10 +11,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     garuda.managed-by: helm
 data:
-  # Env contract mirrors roles/ipt_server/templates/ipt_server.env.j2 so
-  # the container image's startup script does not need changes when
-  # moving from docker-compose to k8s. None of these are sensitive
-  # values; they are routes, interface names, TTLs, and a port number.
+  # This ConfigMap is the source of truth for the ipt-server container's environment.
+  # None of these are sensitive values; they are routes, interface names, TTLs, and a port number.
   IPT_INTERFACES_JSON: "[\"backbone\"]"
   IPT_ROUTES_JSON: "[{\"route\":[{\"gw\":\"192.0.2.130\"},{\"dev\":\"border\"}],\"rules\":[\".*\",\"0.0.0.0/0\"]}]"
   IPT_NIC_ATTACH: "[\"backbone\",\"border\"]"

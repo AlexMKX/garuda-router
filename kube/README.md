@@ -4,10 +4,9 @@ Deploys the `garuda_ipt` + `garuda_pdns` stack as one multi-container
 Kubernetes Deployment, plus an optional FRR sidecar in the same pod
 network namespace.
 
-This module replaces the docker-compose stack rendered by
-`roles/ipt_server/templates/compose_ipt_server.yml.j2`. The container
-contract (env vars and capabilities) is preserved; only the runtime
-plane shifts to Kubernetes.
+This module replaces the docker-compose stack previously rendered by the
+ipt_server Ansible role. The container contract (env vars and capabilities)
+is preserved; only the runtime plane shifts to Kubernetes.
 
 ## Inputs
 
@@ -75,8 +74,8 @@ module "ipt_server_kube" {
 ## What this module does NOT do
 
 - It does not own the ipt_server Python application logic. The image
-  contract from `roles/ipt_server/files/ipt-server` is preserved; this
-  module only re-packages how that image is delivered.
+  contract (env vars and capabilities) is preserved; this module only
+  re-packages how that image is delivered.
 - It does not install Multus. See `modules/garuda_k8s` for that.
 - It does not generate routes from higher-level topology. Callers
   compute `routes` and `pbr_interfaces` upstream (mini-site `locals.tf`).

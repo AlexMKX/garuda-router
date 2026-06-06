@@ -6,10 +6,8 @@ metadata:
   labels:
     {{- include "iptServer.labels" . | nindent 4 }}
 data:
-  # Env contract mirrors roles/ipt_server/templates/ipt_server.env.j2 so
-  # the container image's startup script does not need changes when
-  # moving from docker-compose to k8s. None of these are sensitive
-  # values; they are routes, interface names, TTLs, and a port number.
+  # This ConfigMap is the source of truth for the ipt-server container's environment.
+  # None of these are sensitive values; they are routes, interface names, TTLs, and a port number.
   IPT_INTERFACES_JSON: {{ .Values.pbrInterfaces | toJson | quote }}
   IPT_ROUTES_JSON: {{ .Values.routes | toJson | quote }}
   IPT_NIC_ATTACH: {{ .Values.nicAttach | toJson | quote }}
