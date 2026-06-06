@@ -16,7 +16,7 @@ import pytest
 
 from conftest import REPO_ROOT
 
-IPT_FILES = REPO_ROOT / "modules" / "ipt_server" / "kube" / "image" / "ipt-server"
+IPT_FILES = REPO_ROOT / "kube" / "image" / "ipt-server"
 
 # Stub local source modules that are not importable outside the container image.
 # Only stub modules that are not installed in the test environment — do NOT

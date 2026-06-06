@@ -9,12 +9,12 @@ that reference source files by repo-relative path.
 from pathlib import Path
 import sys
 
-# The ipt-server source lives at modules/ipt_server/kube/image/ipt-server
-# relative to the repo root.  Compute REPO_ROOT as four parents up from this
-# conftest (pyunit/ -> tests/ -> kube/ -> ipt_server/ -> modules/ -> repo root).
-REPO_ROOT: Path = Path(__file__).resolve().parents[5]
+# In the garuda-router repo the layout is kube/tests/pyunit/conftest.py.
+# parents[0] = kube/tests/pyunit, parents[1] = kube/tests,
+# parents[2] = kube, parents[3] = repo root.
+REPO_ROOT: Path = Path(__file__).resolve().parents[3]
 
-_IPT_SERVER_SRC = REPO_ROOT / "modules" / "ipt_server" / "kube" / "image" / "ipt-server"
+_IPT_SERVER_SRC = REPO_ROOT / "kube" / "image" / "ipt-server"
 _ipt_server_src_str = str(_IPT_SERVER_SRC)
 if _ipt_server_src_str not in sys.path:
     sys.path.insert(0, _ipt_server_src_str)

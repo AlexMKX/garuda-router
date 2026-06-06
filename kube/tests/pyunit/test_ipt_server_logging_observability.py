@@ -101,9 +101,9 @@ def test_echo_logs_incoming_a_record(caplog, monkeypatch):
 @pytest.mark.parametrize(
     "rel_path",
     [
-        "modules/ipt_server/kube/image/ipt-server/tasks/interface_monitor.py",
-        "modules/ipt_server/kube/image/ipt-server/tasks/route_health_monitor.py",
-        "modules/ipt_server/kube/image/ipt-server/lib.py",
+        "kube/image/ipt-server/tasks/interface_monitor.py",
+        "kube/image/ipt-server/tasks/route_health_monitor.py",
+        "kube/image/ipt-server/lib.py",
     ],
 )
 def test_runtime_modules_do_not_emit_runtime_logs_via_root_logger(rel_path):
